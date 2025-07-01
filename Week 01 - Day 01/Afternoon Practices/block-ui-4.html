@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Cards Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .card-header {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            object-fit: cover;
+        }
+        
+        .name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .job {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 12px;
+        }
+        
+        .info-row:last-of-type {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #666;
+        }
+        
+        .contact-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 0;
+            border: none;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .email-btn {
+            background: #ff6b6b;
+        }
+        
+        .phone-btn {
+            background: #4ecdc4;
+        }
+        
+        .card:nth-child(1) .email-btn { background: #ff6b6b; }
+        .card:nth-child(1) .phone-btn { background: #4ecdc4; }
+        
+        .card:nth-child(2) .email-btn { background: #4ecdc4; }
+        .card:nth-child(2) .phone-btn { background: #5dade2; }
+        
+        .card:nth-child(3) .email-btn { background: #f39c12; }
+        .card:nth-child(3) .phone-btn { background: #f1c40f; }
+        
+        .card:nth-child(4) .email-btn { background: #a569bd; }
+        .card:nth-child(4) .phone-btn { background: #e91e63; }
+        
+        .contact-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&h=240&fit=crop&crop=face" alt="Profile" class="profile-img">
+                <div class="name">ROBERT PATTISON</div>
+                <div class="job">Developer</div>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">DOB</span>
+                <span class="info-value">23/05/2014</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">BG</span>
+                <span class="info-value">B+</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">EDU</span>
+                <span class="info-value">MCA</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">RES</span>
+                <span class="info-value">Bangalore</span>
+            </div>
+            
+            <a href="mailto:robot12@gmail.com" class="contact-btn email-btn">EMAIL ID<br>robot12@gmail.com</a>
+            <a href="tel:8655543219" class="contact-btn phone-btn">PHONE NO<br>8655543219</a>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&h=240&fit=crop&crop=face" alt="Profile" class="profile-img">
+                <div class="name">JAMES SMITH</div>
+                <div class="job">Designer</div>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">DOB</span>
+                <span class="info-value">23/05/2014</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">BG</span>
+                <span class="info-value">B+</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">EDU</span>
+                <span class="info-value">MCA</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">RES</span>
+                <span class="info-value">Bangalore</span>
+            </div>
+            
+            <a href="mailto:smith12@gmail.com" class="contact-btn email-btn">EMAIL ID<br>smith12@gmail.com</a>
+            <a href="tel:8225543219" class="contact-btn phone-btn">PHONE NO<br>8225543219</a>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=240&h=240&fit=crop&crop=face" alt="Profile" class="profile-img">
+                <div class="name">TOM HANKS</div>
+                <div class="job">UI Designer</div>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">DOB</span>
+                <span class="info-value">23/05/2014</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">BG</span>
+                <span class="info-value">B+</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">EDU</span>
+                <span class="info-value">MCA</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">RES</span>
+                <span class="info-value">Bangalore</span>
+            </div>
+            
+            <a href="mailto:peter1@gmail.com" class="contact-btn email-btn">EMAIL ID<br>peter1@gmail.com</a>
+            <a href="tel:8225543929" class="contact-btn phone-btn">PHONE NO<br>8225543929</a>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-header">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=240&h=240&fit=crop&crop=face" alt="Profile" class="profile-img">
+                <div class="name">SILVESTER STALIN</div>
+                <div class="job">Testing</div>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">DOB</span>
+                <span class="info-value">23/05/2014</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">BG</span>
+                <span class="info-value">B+</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">EDU</span>
+                <span class="info-value">MCA</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">RES</span>
+                <span class="info-value">Bangalore</span>
+            </div>
+            
+            <a href="mailto:point12@gmail.com" class="contact-btn email-btn">EMAIL ID<br>point12@gmail.com</a>
+            <a href="tel:9937924265" class="contact-btn phone-btn">PHONE NO<br>9937924265</a>
+        </div>
+    </div>
+</body>
+</html>

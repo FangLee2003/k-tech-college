@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joseph Max - Profile Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            height: 200px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop') center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+            margin-right: 15px;
+        }
+        
+        .profile-info h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+        }
+        
+        .stats {
+            padding: 0;
+        }
+        
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stat:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: #999;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        .stat-value {
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 15px;
+        }
+        
+        .followers { background: #ff6b6b; }
+        .followings { background: #4ecdc4; }
+        .messages { background: #45b7d1; }
+        .likes { background: #f9ca24; }
+        .comments { background: #a55eea; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face" alt="Joseph Max" class="profile-img">
+            <div class="profile-info">
+                <h2>Joseph Max</h2>
+                <p>Web Designer</p>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-label">Followers</span>
+                <span class="stat-value followers">1,200</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Followings</span>
+                <span class="stat-value followings">1,200</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Messages</span>
+                <span class="stat-value messages">1,200</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Likes</span>
+                <span class="stat-value likes">1,200</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Comments</span>
+                <span class="stat-value comments">1,200</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
