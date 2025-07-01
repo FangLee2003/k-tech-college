@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .exercise {
+            border: 1px solid #ddd;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .exercise h3 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #eee;
+            border: 2px solid #ccc;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        .highlight {
+            background: yellow !important;
+        }
+
+        .hoverBox {
+            width: 200px;
+            height: 100px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 20px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .error-border {
+            border-color: red !important;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover {
+            border-color: #007bff;
+        }
+
+        #mainPhoto {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .color-box {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f5f5f5;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JavaScript DOM Practice - 20 Exercises</h1>
+
+    <!-- Exercise 1: Change Text Content -->
+    <div class="exercise">
+        <h3>1. Change Text Content</h3>
+        <div id="textDisplay">Click button to change this text</div>
+        <button id="changeTextBtn">Change Text</button>
+    </div>
+
+    <!-- Exercise 2: Toggle CSS Class -->
+    <div class="exercise">
+        <h3>2. Toggle CSS Class</h3>
+        <div class="box"></div>
+        <button id="toggleHighlightBtn">Toggle Highlight</button>
+    </div>
+
+    <!-- Exercise 3: Add New List Item -->
+    <div class="exercise">
+        <h3>3. Add New List Item</h3>
+        <input type="text" id="itemInput" placeholder="Enter item">
+        <button id="addItemBtn">Add Item</button>
+        <ul id="itemList"></ul>
+    </div>
+
+    <!-- Exercise 4: Remove Element -->
+    <div class="exercise">
+        <h3>4. Remove Element</h3>
+        <ul id="deleteList">
+            <li>Item 1 <button class="deleteBtn delete-btn">Delete</button></li>
+            <li>Item 2 <button class="deleteBtn delete-btn">Delete</button></li>
+            <li>Item 3 <button class="deleteBtn delete-btn">Delete</button></li>
+        </ul>
+    </div>
+
+    <!-- Exercise 5: Update Image Source -->
+    <div class="exercise">
+        <h3>5. Update Image Source</h3>
+        <img id="mainImage" src="https://via.placeholder.com/200x150/cccccc/000000?text=Cat" alt="Main Image"
+            style="width: 200px; height: 150px;">
+        <br>
+        <button id="changeImageBtn">Change to Dog</button>
+    </div>
+
+    <!-- Exercise 6: Get Input Value -->
+    <div class="exercise">
+        <h3>6. Get Input Value</h3>
+        <input type="text" id="usernameInput" placeholder="Enter username">
+        <button id="submitUsername">Submit</button>
+    </div>
+
+    <!-- Exercise 7: Multiple Event Listeners -->
+    <div class="exercise">
+        <h3>7. Multiple Event Listeners</h3>
+        <button class="colorBtn">Red</button>
+        <button class="colorBtn">Blue</button>
+        <button class="colorBtn">Green</button>
+    </div>
+
+    <!-- Exercise 8: Change Background on Hover -->
+    <div class="exercise">
+        <h3>8. Change Background on Hover</h3>
+        <div class="hoverBox">Hover over me!</div>
+    </div>
+
+    <!-- Exercise 9: Live Clock -->
+    <div class="exercise">
+        <h3>9. Live Clock</h3>
+        <p id="clockDisplay">Clock will appear here</p>
+    </div>
+
+    <!-- Exercise 10: Validate Form Field -->
+    <div class="exercise">
+        <h3>10. Validate Email</h3>
+        <input type="text" id="emailInput" placeholder="Enter email">
+        <button id="validateBtn">Validate</button>
+        <div id="errorMessage" class="error"></div>
+    </div>
+
+    <!-- Exercise 11: Hide Element -->
+    <div class="exercise">
+        <h3>11. Hide Element</h3>
+        <p id="infoPara">This paragraph can be hidden</p>
+        <button id="hideParaBtn">Hide Paragraph</button>
+    </div>
+
+    <!-- Exercise 12: Greeting Based on Time -->
+    <div class="exercise">
+        <h3>12. Time-based Greeting</h3>
+        <p id="greetingText">Loading greeting...</p>
+    </div>
+
+    <!-- Exercise 13: Field Border Highlight -->
+    <div class="exercise">
+        <h3>13. Form Validation with Border</h3>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button id="formSubmit">Submit</button>
+        <div id="nameError" class="error"></div>
+    </div>
+
+    <!-- Exercise 14: Disable Button -->
+    <div class="exercise">
+        <h3>14. Disable Button After Click</h3>
+        <button id="onceBtn">Click me once</button>
+    </div>
+
+    <!-- Exercise 15: Character Counter -->
+    <div class="exercise">
+        <h3>15. Character Counter</h3>
+        <textarea id="bioInput" placeholder="Write about yourself (max 200 chars)" maxlength="200"></textarea>
+        <p id="charCount">200 characters remaining</p>
+    </div>
+
+    <!-- Exercise 16: Add Colored Boxes -->
+    <div class="exercise">
+        <h3>16. Add Colored Boxes</h3>
+        <button id="addBoxBtn">Add Box</button>
+        <div id="boxContainer"></div>
+    </div>
+
+    <!-- Exercise 17: Strike Through Items -->
+    <div class="exercise">
+        <h3>17. Strike Through Todo Items</h3>
+        <ul id="todoList">
+            <li>Learn JavaScript</li>
+            <li>Practice DOM manipulation</li>
+            <li>Build a project</li>
+        </ul>
+    </div>
+
+    <!-- Exercise 18: Show/Hide Password -->
+    <div class="exercise">
+        <h3>18. Show/Hide Password</h3>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <label>
+            <input type="checkbox" id="togglePassword"> Show password
+        </label>
+    </div>
+
+    <!-- Exercise 19: Count Checkboxes -->
+    <div class="exercise">
+        <h3>19. Count Checked Checkboxes</h3>
+        <label><input type="checkbox" class="optionBox"> Option 1</label>
+        <label><input type="checkbox" class="optionBox"> Option 2</label>
+        <label><input type="checkbox" class="optionBox"> Option 3</label>
+        <label><input type="checkbox" class="optionBox"> Option 4</label>
+        <p id="checkedCount">0 checkboxes selected</p>
+    </div>
+
+    <!-- Exercise 20: Image Gallery -->
+    <div class="exercise">
+        <h3>20. Image Gallery</h3>
+        <div>
+            <img class="thumbnail" src="dog.jpg" alt="Image 1">
+            <img class="thumbnail" src="cat.jpg" alt="Image 2">
+            <img class="thumbnail" src="capybara.jpg" alt="Image 3">
+            <img class="thumbnail" src="owl.jpg" alt="Image 4">
+        </div>
+        <br>
+        <img id="mainPhoto" src="https://via.placeholder.com/300x200/cccccc/000000?text=Click+thumbnail"
+            alt="Main Photo">
+    </div>
+    <script>
+        // Exercise 1: Change Text Content
+        document.getElementById('changeTextBtn').addEventListener('click', function () {
+            document.getElementById('textDisplay').textContent = "Hello, JavaScript!";
+        })
+
+        // Exercise 2: Toggle CSS Class
+        document.getElementById('toggleHighlightBtn').addEventListener('click', function () {
+            document.querySelector('.box').classList.toggle('highlight');
+        })
+
+        //Excercise 3: Add New List Item
+        document.getElementById('addItemBtn').addEventListener('click', function () {
+            document.getElementById('itemList').innerHTML += "<li>" + document.getElementById('itemInput').value + "</li>";
+        })
+
+        //Exercise 4: Remove Element
+        document.querySelectorAll('.deleteBtn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                this.parentElement.remove();
+            });
+        });
+
+        // Exercise 5: Update Image Source
+        document.getElementById('changeImageBtn').addEventListener('click', function () {
+            document.getElementById('mainImage').src = "dog.jpg";
+        });
+
+        // Exercise 6: Get Input Value
+        document.getElementById('submitUsername').addEventListener('click', function () {
+            alert("Username: " + document.getElementById('usernameInput').value)
+        })
+
+        // Exercise 7: Multiple Event Listeners
+        document.querySelectorAll('.colorBtn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                alert("Clicked button: " + this.textContent)
+            })
+        })
+
+        // Exercise 8: Action: When hovered, change its background to lightblue. Revert on mouse leave.
+        document.querySelector('.hoverBox').addEventListener('mouseenter', function () {
+            this.style.backgroundColor = "#ADD8E6";
+        });
+        document.querySelector('.hoverBox').addEventListener('mouseout', function () {
+            this.style.backgroundColor = "#f0f0f0";
+        });
+
+        // Exercise 9: Live Clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clockDisplay').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to set the clock immediately
+
+        // Excercise 10: Validate Email
+        const validateEmail = (email) => {
+            return String(email)
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                );
+        };
+        document.getElementById('validateBtn').addEventListener('click', function () {
+            if (!validateEmail(document.getElementById('emailInput').value)) {
+                document.getElementById('errorMessage').textContent = "Invalid email format";
+            }
+            else {
+                document.getElementById('errorMessage').textContent = "";
+            }
+        })
+
+        // Exercise 11: Hide Element
+        document.getElementById('hideParaBtn').addEventListener('click', function () {
+            document.getElementById('infoPara').style.display = 'none';
+        });
+        const nameInput = () => {
+            const hour = new Date().getHours();
+            if (hour < 12) {
+                return "Good morning!";
+            } else if (hour < 18) {
+                return "Good afternoon!";
+            }
+            return "Good evening!";
+        }
+
+        // Excercise 12: Greeting Based on Time
+        document.getElementById('greetingText').textContent = (() => {
+            const hour = new Date().getHours();
+            if (hour < 12) {
+                return "Good morning!";
+            } else if (hour < 18) {
+                return "Good afternoon!";
+            }
+            return "Good evening!";
+        })() // Since the function has no name, to call it we just need ()
+
+        // Exercise 13: Field Border Highlight
+        document.getElementById('formSubmit').addEventListener('click', function () {
+            if (document.getElementById('nameInput').value.trim() === "") {
+                document.getElementById('nameInput').classList.add('error-border');
+                document.getElementById('nameError').textContent = "Name cannot be empty";
+            } else {
+                document.getElementById('nameInput').classList.remove('error-border');
+                document.getElementById('nameError').textContent = "";
+            }
+        })
+
+        // Exercise 14: Disable Button After Click
+        document.getElementById('onceBtn').addEventListener('click', function () {
+            this.disabled = true;
+            this.textContent = "You clicked me!";
+        });
+
+        // Exercise 15: Character Counter
+        document.getElementById('bioInput').addEventListener('input', function () {
+            document.getElementById('charCount').textContent =
+                (200 - this.value.length) + " characters remaining";
+        })
+
+        // Exercise 16: Add Colored Boxes
+        document.getElementById('addBoxBtn').addEventListener('click', function () {
+            const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            document.getElementById('boxContainer').innerHTML +=
+                `<div class="box" style="background: ${randomColor}"></div>`;
+        })
+
+        // Exercise 17: Strike Through Todo Items
+        document.querySelectorAll('#todoList li').forEach(function (item) {
+            item.addEventListener('click', function () {
+                item.classList.toggle('strikethrough');
+            })
+        })
+
+        // Excercise 18: Show/Hide Password
+        document.getElementById('togglePassword').addEventListener('change', function () {
+            document.getElementById('passwordInput').type = this.checked ? 'text' : 'password';
+        });
+
+        // Exercise 19: Count Checked Checkboxes
+        document.querySelectorAll('.optionBox').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const checkedCount = document.querySelectorAll('.optionBox:checked').length;
+                document.getElementById('checkedCount').textContent = checkedCount + " checkboxes selected";
+            })
+        })
+
+        //Excercise 20: Image Gallery
+        document.querySelectorAll('.thumbnail').forEach(function (thumbnail) {
+            thumbnail.addEventListener('click', function () {
+                document.getElementById('mainPhoto').src = this.src.replace('80x80', '300x200');
+            });
+        });
+    </script>
+</body>
+
+</html>

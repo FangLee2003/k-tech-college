@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80">
+        <h1 class="text-2xl font-bold text-center mb-6">Calculator</h1>
+
+        <input type="text" id="display" readonly
+            class="w-full h-16 text-2xl text-right p-4 border-2 rounded mb-4 bg-gray-50 font-mono">
+
+        <div class="grid grid-cols-4 gap-2">
+            <button onclick="appendToDisplay('+')"
+                class="bg-blue-500 text-white p-4 rounded hover:bg-blue-600">+</button>
+            <button onclick="appendToDisplay('-')"
+                class="bg-blue-500 text-white p-4 rounded hover:bg-blue-600">-</button>
+            <button onclick="appendToDisplay('*')"
+                class="bg-blue-500 text-white p-4 rounded hover:bg-blue-600">×</button>
+            <button onclick="appendToDisplay('/')"
+                class="bg-blue-500 text-white p-4 rounded hover:bg-blue-600">/</button>
+
+            <button onclick="appendToDisplay('7')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">7</button>
+            <button onclick="appendToDisplay('8')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">8</button>
+            <button onclick="appendToDisplay('9')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">9</button>
+            <button onclick="deleteLast()" class="bg-red-500 text-white p-4 rounded hover:bg-red-600">⌫</button>
+
+            <button onclick="appendToDisplay('4')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">4</button>
+            <button onclick="appendToDisplay('5')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">5</button>
+            <button onclick="appendToDisplay('6')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">6</button>
+            <button onclick="clearDisplay()" class="bg-red-500 text-white p-4 rounded hover:bg-red-600">C</button>
+
+            <button onclick="appendToDisplay('1')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">1</button>
+            <button onclick="appendToDisplay('2')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">2</button>
+            <button onclick="appendToDisplay('3')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">3</button>
+            <button onclick="calculate()"
+                class="bg-green-500 text-white p-4 rounded hover:bg-green-600 row-span-2">=</button>
+
+            <button onclick="appendToDisplay('0')"
+                class="bg-gray-200 p-4 rounded hover:bg-gray-300 col-span-2">0</button>
+            <button onclick="appendToDisplay('.')" class="bg-gray-200 p-4 rounded hover:bg-gray-300">.</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let current = ''; // Current operand
+        let operator = '';
+        let previous = ''; // Previous operand
+
+        function appendToDisplay(value) {
+            if (['+', '-', '*', '/'].includes(value)) { // Add new operator
+                if (current === '' && previous === '') return; // Prevent operator input if no numbers are entered
+                if (previous && current && operator) calculate(); // Calculate if both operands and operator already exists before adding new operator
+                operator = value;
+                previous = current || previous;
+                current = '';
+                display.value = previous + ' ' + (value === '*' ? '×' : value) + ' ';
+            } else { // Add number or decimal point
+                if (value === '.' && current.includes('.')) return; // Prevent multiple decimal points
+                current += value;
+                display.value = operator ? previous + ' ' + (operator === '*' ? '×' : operator) + ' ' + current : current;
+                // If there's an operator, show previous, operator and current values
+            }
+            console.log("previous:", previous, "current:", current, "operator:", operator);
+        }
+
+        function clearDisplay() {
+            display.value = '';
+            current = operator = previous = '';
+        }
+
+        function deleteLast() {
+            if (current) {
+                current = current.slice(0, -1);
+                display.value = operator ? previous + ' ' + (operator === '*' ? '×' : operator) + ' ' + current : current;
+            } else if (operator) {
+                operator = '';
+                current = previous;
+                previous = '';
+                display.value = current;
+            } else if (previous) {
+                previous = previous.slice(0, -1);
+                display.value = previous;
+            }
+        }
+
+        function calculate() {
+            if (!previous || !current || !operator) return;
+
+            const prev = parseFloat(previous);
+            const curr = parseFloat(current);
+            let result;
+
+            switch (operator) {
+                case '+': result = prev + curr; break;
+                case '-': result = prev - curr; break;
+                case '*': result = prev * curr; break;
+                case '/':
+                    if (curr === 0) {
+                        alert('Cannot divide by zero!');
+                        return;
+                    }
+                    result = prev / curr;
+                    break;
+            }
+            display.value = result.toFixed(2);
+            current = result.toString();
+            operator = previous = '';
+        }
+
+        document.addEventListener('keydown', function (e) {
+            const key = e.key;
+            if (key >= '0' && key <= '9' || key === '.') appendToDisplay(key);
+            else if (['+', '-', '*', '/'].includes(key)) appendToDisplay(key);
+            else if (key === 'Enter' || key === '=') calculate();
+            else if (key === 'Escape') clearDisplay();
+            else if (key === 'Backspace') deleteLast();
+        });
+    </script>
+</body>
+
+</html>
