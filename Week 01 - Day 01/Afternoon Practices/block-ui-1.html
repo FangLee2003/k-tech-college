@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <script>
+        const data = [
+            { label: 'BANDWIDTH', percent: 20, title_color: '#e54d4c', percent_color: '#e74c3c' },
+            { label: 'STORAGE', percent: 50, title_color: '#2db8cd', percent_color: '#3498db' },
+            { label: 'USERS', percent: 70, title_color: '#4ac25e', percent_color: '#27ae60' },
+            { label: 'VISITORS', percent: 30, title_color: '#e9c318', percent_color: '#f1c40f' },
+            { label: 'EMAILS', percent: 45, title_color: '#bb70d5', percent_color: '#9b59b6' },
+            { label: 'BASIC', percent: 80, title_color: '#eb59d6', percent_color: '#e91e63' },
+            { label: 'OTHERS', percent: 37, title_color: '#5890da', percent_color: '#5dade2' }
+        ];
+
+        data.forEach(item => {
+            document.body.innerHTML += `
+                <div class="bar">
+                 <span class="title" style="background:${item.title_color}">   ${item.label}</span>
+                 <span class="percent" style="width: ${item.percent}%; background: ${item.percent_color};"> ${item.percent}% </span>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
