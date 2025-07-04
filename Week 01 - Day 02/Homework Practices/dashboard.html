@@ -1,225 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alan Walker - Resume</title>
+    <title>To-Do & Notes Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
 </head>
-
-<body class="bg-gray-100 p-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-lg px-6">
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <div class="container mx-auto p-6 max-w-6xl">
         <!-- Header -->
-        <div class="w-1/3 bg-black text-white pt-6 pl-6">
-            <h1 class="text-lg">RESUME</h1>
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
+                <p id="greeting" class="text-gray-600 dark:text-gray-300"></p>
+                <p id="clock" class="text-lg font-mono text-blue-600 dark:text-blue-400"></p>
+            </div>
+            <button id="themeToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                <span class="text-2xl">🌙</span>
+            </button>
         </div>
 
-        <!-- Name Section -->
-        <div class="p-8 text-center">
-            <h1 class="text-5xl font-light text-gray-400 tracking-widest">ALAN WALKER</h1>
-            <p class="text-gray-400 mt-2 italic">Graphic Designer</p>
-        </div>
-
-        <div class="flex">
-            <!-- Left Sidebar -->
-            <div class="w-1/3 bg-black text-white p-6">
-                <!-- Profile Photo -->
-                <div class="mb-6">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
-                        alt="Profile" class="w-full h-64 object-cover">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- To-Do Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">To-Do List</h2>
+                
+                <!-- Add Task Form -->
+                <div class="mb-4">
+                    <input type="text" id="taskInput" placeholder="Add a new task..." 
+                           class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button id="addTaskBtn" class="w-full mt-2 p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        Add Task
+                    </button>
+                    <div id="taskError" class="text-red-500 text-sm mt-1 hidden">Please enter a task!</div>
                 </div>
 
-                <!-- Profile Section -->
-                <div class="mb-8">
-                    <h2 class="text-xl mb-4">PROFILE</h2>
-                    <div class="space-y-3 text-sm">
-                        <div>
-                            <p class="font-semibold">Name</p>
-                            <p class="italic">Alan Walker</p>
-                        </div>
-                        <div>
-                            <p class="font-semibold">Date of Birth</p>
-                            <p class="italic">10/05/1989</p>
-                        </div>
-                        <div>
-                            <p class="font-semibold">Phone</p>
-                            <p class="italic">0193 483 4827</p>
-                        </div>
-                        <div>
-                            <p class="font-semibold">Email</p>
-                            <p class="italic">alanwalker@gmail.com</p>
-                        </div>
-                        <div>
-                            <p class="font-semibold">Website</p>
-                            <p class="italic">www.yourdomain.com</p>
-                        </div>
-                    </div>
+                <!-- Filter Buttons -->
+                <div class="flex gap-2 mb-4">
+                    <button class="filter-btn active px-3 py-1 rounded-lg bg-blue-500 text-white text-sm" data-filter="all">All</button>
+                    <button class="filter-btn px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white text-sm" data-filter="completed">Completed</button>
+                    <button class="filter-btn px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white text-sm" data-filter="incomplete">Incomplete</button>
                 </div>
 
-                <!-- Hobbies Section -->
-                <div>
-                    <h2 class="text-xl mb-4">HOBBIES</h2>
-                    <div class="space-y-2 text-sm">
-                        <p>★ Dance</p>
-                        <p>★ Read Book</p>
-                        <p>★ Swimming</p>
-                    </div>
-                </div>
+                <!-- Tasks List -->
+                <div id="tasksList" class="space-y-2"></div>
             </div>
 
-            <!-- Right Content -->
-            <div class="w-2/3 p-6">
-                <!-- Job Experiences -->
-                <div class="mb-8">
-                    <h2 class="text-xl text-gray-400 mb-4">JOB EXPERIENCES</h2>
-
-                    <div class="mb-4">
-                        <div class="flex">
-                            <span class="font-bold text-black mr-4 whitespace-nowrap">2014 - 2015</span>
-                            <div>
-                                <h3 class="font-bold text-gray-400">COMPANY NAME 1</h3>
-                                <p class="italic text-gray-400 text-sm">Position held</p>
-                                <p class="text-xs mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex">
-                            <span class="font-bold text-black mr-4 whitespace-nowrap">2011 - 2013</span>
-                            <div>
-                                <h3 class="font-bold text-gray-400">COMPANY NAME 2</h3>
-                                <p class="italic text-gray-400 text-sm">Position held</p>
-                                <p class="text-xs mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex">
-                            <span class="font-bold text-black mr-4 whitespace-nowrap">2009 - 2010</span>
-                            <div>
-                                <h3 class="font-bold text-gray-400">COMPANY NAME 3</h3>
-                                <p class="italic text-gray-400 text-sm">Position held</p>
-                                <p class="text-xs mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor</p>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Notes Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Sticky Notes</h2>
+                
+                <!-- Add Note Form -->
+                <div class="mb-4">
+                    <input type="text" id="noteInput" placeholder="Add a new note..." 
+                           class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <button id="addNoteBtn" class="w-full mt-2 p-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                        Add Note
+                    </button>
+                    <div id="noteError" class="text-red-500 text-sm mt-1 hidden">Please enter a note!</div>
                 </div>
 
-                <!-- Education -->
-                <div class="mb-8">
-                    <h2 class="text-xl text-gray-400 mb-4">EDUCATION</h2>
-
-                    <div class="mb-4">
-                        <div class="flex">
-                            <span class="font-bold text-black mr-4 whitespace-nowrap">2008 - 2012</span>
-                            <div>
-                                <h3 class="font-bold text-gray-400">UNIVERSITY NAME</h3>
-                                <p class="italic text-gray-400 text-sm">Course studied</p>
-                                <p class="text-xs mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex">
-                            <span class="font-bold text-black mr-4 whitespace-nowrap">2006 - 2007</span>
-                            <div>
-                                <h3 class="font-bold text-gray-400">UNIVERSITY NAME</h3>
-                                <p class="italic text-gray-400 text-sm">Course studied</p>
-                                <p class="text-xs mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Professional Skills -->
-                <div class="mb-6">
-                    <h2 class="text-xl text-gray-400 mb-4">PROFESSIONAL SKILLS</h2>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">Photoshop</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-4/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">Illustrator</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-3/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">HTML ( 5 )</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-4/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">CSS ( 3 )</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-3/5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Personal Skills -->
-                <div>
-                    <h2 class="text-xl text-gray-400 mb-4">PERSONAL SKILLS</h2>
-                    <div class="space-y-3">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">Team Work</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-3/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">Timekeeping</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-4/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">Organisation</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-3/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-semibold">Communication</span>
-                            </div>
-                            <div class="bg-gray-200 h-2">
-                                <div class="bg-black h-2 w-3/5"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Notes Grid -->
+                <div id="notesList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
             </div>
         </div>
     </div>
-</body>
 
+    <script>
+        // Global variables
+        let tasks = [];
+        let notes = [];
+        let currentFilter = 'all';
+        let isDarkMode = false;
+
+        const noteColors = ['bg-yellow-200', 'bg-pink-200', 'bg-green-200', 'bg-blue-200', 'bg-purple-200', 'bg-orange-200'];
+
+        // DOM elements
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const tasksList = document.getElementById('tasksList');
+        const taskError = document.getElementById('taskError');
+        const noteInput = document.getElementById('noteInput');
+        const addNoteBtn = document.getElementById('addNoteBtn');
+        const notesList = document.getElementById('notesList');
+        const noteError = document.getElementById('noteError');
+        const themeToggle = document.getElementById('themeToggle');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const greeting = document.getElementById('greeting');
+        const clock = document.getElementById('clock');
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromStorage();
+            updateClock();
+            updateGreeting();
+            setInterval(updateClock, 1000);
+            renderTasks();
+            renderNotes();
+        });
+
+        // Clock and greeting
+        function updateClock() {
+            const now = new Date();
+            clock.textContent = now.toLocaleTimeString();
+        }
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greetingText = '';
+            
+            if (hour < 12) {
+                greetingText = 'Good Morning!';
+            } else if (hour < 18) {
+                greetingText = 'Good Afternoon!';
+            } else {
+                greetingText = 'Good Evening!';
+            }
+            
+            greeting.textContent = greetingText;
+        }
+
+        // Theme toggle
+        themeToggle.addEventListener('click', function() {
+            isDarkMode = !isDarkMode;
+            document.documentElement.classList.toggle('dark');
+            themeToggle.innerHTML = isDarkMode ? '<span class="text-2xl">☀️</span>' : '<span class="text-2xl">🌙</span>';
+            saveToStorage();
+        });
+
+        // Task functions
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            
+            if (!taskText) {
+                showError('taskError');
+                return;
+            }
+            
+            hideError('taskError');
+            
+            const task = {
+                id: Date.now(),
+                text: taskText,
+                completed: false
+            };
+            
+            tasks.push(task);
+            taskInput.value = '';
+            renderTasks();
+            saveToStorage();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            renderTasks();
+            saveToStorage();
+        }
+
+        function toggleTask(id) {
+            const task = tasks.find(task => task.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                renderTasks();
+                saveToStorage();
+            }
+        }
+
+        function renderTasks() {
+            const filteredTasks = tasks.filter(task => {
+                if (currentFilter === 'completed') return task.completed;
+                if (currentFilter === 'incomplete') return !task.completed;
+                return true;
+            });
+
+            tasksList.innerHTML = '';
+            
+            filteredTasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = `flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg ${task.completed ? 'opacity-75' : ''}`;
+                
+                taskEl.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                               onchange="toggleTask(${task.id})"
+                               class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                        <span class="text-gray-800 dark:text-white ${task.completed ? 'line-through' : ''}">${task.text}</span>
+                    </div>
+                    <button onclick="deleteTask(${task.id})" 
+                            class="text-red-500 hover:text-red-700 font-bold">×</button>
+                `;
+                
+                tasksList.appendChild(taskEl);
+            });
+        }
+
+        // Note functions
+        function addNote() {
+            const noteText = noteInput.value.trim();
+            
+            if (!noteText) {
+                showError('noteError');
+                return;
+            }
+            
+            hideError('noteError');
+            
+            const note = {
+                id: Date.now(),
+                text: noteText,
+                color: noteColors[Math.floor(Math.random() * noteColors.length)]
+            };
+            
+            notes.push(note);
+            noteInput.value = '';
+            renderNotes();
+            saveToStorage();
+        }
+
+        function deleteNote(id) {
+            notes = notes.filter(note => note.id !== id);
+            renderNotes();
+            saveToStorage();
+        }
+
+        function renderNotes() {
+            notesList.innerHTML = '';
+            
+            notes.forEach(note => {
+                const noteEl = document.createElement('div');
+                noteEl.className = `relative p-4 ${note.color} rounded-lg shadow-sm`;
+                
+                noteEl.innerHTML = `
+                    <button onclick="deleteNote(${note.id})" 
+                            class="absolute top-2 right-2 text-gray-600 hover:text-red-600 font-bold">×</button>
+                    <p class="text-gray-800 pr-6 break-words">${note.text}</p>
+                `;
+                
+                notesList.appendChild(noteEl);
+            });
+        }
+
+        // Filter functions
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentFilter = this.dataset.filter;
+                
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-blue-500', 'text-white');
+                    b.classList.add('bg-gray-200', 'dark:bg-gray-600', 'text-gray-800', 'dark:text-white');
+                });
+                
+                this.classList.add('active', 'bg-blue-500', 'text-white');
+                this.classList.remove('bg-gray-200', 'dark:bg-gray-600', 'text-gray-800', 'dark:text-white');
+                
+                renderTasks();
+            });
+        });
+
+        // Error handling
+        function showError(errorId) {
+            document.getElementById(errorId).classList.remove('hidden');
+        }
+
+        function hideError(errorId) {
+            document.getElementById(errorId).classList.add('hidden');
+        }
+
+        // Storage functions
+        function saveToStorage() {
+            const data = {
+                tasks: tasks,
+                notes: notes,
+                isDarkMode: isDarkMode
+            };
+            // Note: localStorage is not available in this environment
+            // In a real environment, you would use:
+            // localStorage.setItem('todoNotesData', JSON.stringify(data));
+        }
+
+        function loadFromStorage() {
+            // Note: localStorage is not available in this environment
+            // In a real environment, you would use:
+            // const data = localStorage.getItem('todoNotesData');
+            // if (data) {
+            //     const parsed = JSON.parse(data);
+            //     tasks = parsed.tasks || [];
+            //     notes = parsed.notes || [];
+            //     isDarkMode = parsed.isDarkMode || false;
+            //     if (isDarkMode) {
+            //         document.documentElement.classList.add('dark');
+            //         themeToggle.innerHTML = '<span class="text-2xl">☀️</span>';
+            //     }
+            // }
+        }
+
+        // Event listeners
+        addTaskBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addTask();
+        });
+
+        addNoteBtn.addEventListener('click', addNote);
+        noteInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addNote();
+        });
+
+        // Hide errors when typing
+        taskInput.addEventListener('input', () => hideError('taskError'));
+        noteInput.addEventListener('input', () => hideError('noteError'));
+    </script>
+</body>
 </html>
