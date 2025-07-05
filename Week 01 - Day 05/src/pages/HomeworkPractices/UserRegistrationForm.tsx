@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './UserRegistrationForm.module.css'; // CSS Modules import
+import styles from './UserRegistrationForm.module.css';
 
 interface FormData {
     fullName: string;
@@ -188,8 +188,8 @@ const UserRegistrationForm: React.FC = () => {
 
     if (isSubmitted) {
         return (
-            <div className="form-container">
-                <div className="success-message">
+            <div className={styles.formContainer}>
+                <div className={styles.successMessage}>
                     <h2>✅ Registration Successful!</h2>
                     <p>Thank you for registering. Your account has been created successfully.</p>
                 </div>
@@ -198,205 +198,205 @@ const UserRegistrationForm: React.FC = () => {
     }
 
     return (
-        <form className="form-container" onSubmit={handleSubmit} noValidate>
-            <h1 className="form-title">User Registration</h1>
-
-            <div className="form-grid">
-                {/* Full Name */}
-                <div className="field-group">
-                    <label htmlFor="fullName" className="label">Full Name *</label>
-                    <input
-                        type="text"
-                        id="fullName"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        className="input"
-                        aria-describedby={errors.fullName ? 'fullName-error' : undefined}
-                    />
-                    {errors.fullName && <span id="fullName-error" className="error-message">{errors.fullName}</span>}
-                </div>
-
-                {/* Email */}
-                <div className="field-group">
-                    <label htmlFor="email" className="label">Email *</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="input"
-                        aria-describedby={errors.email ? 'email-error' : undefined}
-                    />
-                    {errors.email && <span id="email-error" className="error-message">{errors.email}</span>}
-                </div>
-
-                {/* Password */}
-                <div className="field-group">
-                    <label htmlFor="password" className="label">Password *</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                        className="input"
-                        aria-describedby={errors.password ? 'password-error' : undefined}
-                    />
-                    {errors.password && <span id="password-error" className="error-message">{errors.password}</span>}
-                </div>
-
-                {/* Confirm Password */}
-                <div className="field-group">
-                    <label htmlFor="confirmPassword" className="label">Confirm Password *</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleInputChange}
-                        className="input"
-                        aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
-                    />
-                    {errors.confirmPassword && <span id="confirmPassword-error" className="error-message">{errors.confirmPassword}</span>}
-                </div>
-
-                {/* Phone Number */}
-                <div className="field-group">
-                    <label htmlFor="phoneNumber" className="label">Phone Number *</label>
-                    <input
-                        type="tel"
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        value={formData.phoneNumber}
-                        onChange={handleInputChange}
-                        className="input"
-                        aria-describedby={errors.phoneNumber ? 'phoneNumber-error' : undefined}
-                    />
-                    {errors.phoneNumber && <span id="phoneNumber-error" className="error-message">{errors.phoneNumber}</span>}
-                </div>
-
-                {/* Gender */}
-                <div className="field-group">
-                    <label className="label">Gender *</label>
-                    <div className="radio-group">
-                        {['Male', 'Female', 'Other'].map(gender => (
-                            <div key={gender} className="radio-item">
-                                <input
-                                    type="radio"
-                                    id={gender.toLowerCase()}
-                                    name="gender"
-                                    value={gender}
-                                    checked={formData.gender === gender}
-                                    onChange={handleRadioChange}
-                                />
-                                <label htmlFor={gender.toLowerCase()}>{gender}</label>
-                            </div>
-                        ))}
+        <div className={styles.formContainer}>
+            <h1 className={styles.formTitle}>User Registration</h1>
+            
+            <form onSubmit={handleSubmit} noValidate>
+                <div className={styles.formGrid}>
+                    {/* Full Name */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="fullName" className={styles.label}>Full Name *</label>
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            aria-describedby={errors.fullName ? 'fullName-error' : undefined}
+                        />
+                        {errors.fullName && <span id="fullName-error" className={styles.errorMessage}>{errors.fullName}</span>}
                     </div>
-                    {errors.gender && <span className="error-message">{errors.gender}</span>}
-                </div>
 
-                {/* Date of Birth */}
-                <div className="field-group">
-                    <label htmlFor="dateOfBirth" className="label">Date of Birth *</label>
-                    <input
-                        type="date"
-                        id="dateOfBirth"
-                        name="dateOfBirth"
-                        value={formData.dateOfBirth}
-                        onChange={handleInputChange}
-                        className="input"
-                        aria-describedby={errors.dateOfBirth ? 'dateOfBirth-error' : undefined}
-                    />
-                    {errors.dateOfBirth && <span id="dateOfBirth-error" className="error-message">{errors.dateOfBirth}</span>}
-                </div>
-
-                {/* Country */}
-                <div className="field-group">
-                    <label htmlFor="country" className="label">Country *</label>
-                    <select
-                        id="country"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        className="select"
-                        aria-describedby={errors.country ? 'country-error' : undefined}
-                    >
-                        <option value="">Select a country</option>
-                        {countries.map(country => (
-                            <option key={country} value={country}>{country}</option>
-                        ))}
-                    </select>
-                    {errors.country && <span id="country-error" className="error-message">{errors.country}</span>}
-                </div>
-
-                {/* Hobbies */}
-                <div className="field-group">
-                    <label className="label">Hobbies *</label>
-                    <div className="checkbox-group">
-                        {hobbyOptions.map(hobby => (
-                            <div key={hobby} className="checkbox-item">
-                                <input
-                                    type="checkbox"
-                                    id={hobby.toLowerCase()}
-                                    value={hobby}
-                                    checked={formData.hobbies.includes(hobby)}
-                                    onChange={handleCheckboxChange}
-                                />
-                                <label htmlFor={hobby.toLowerCase()}>{hobby}</label>
-                            </div>
-                        ))}
+                    {/* Email */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="email" className={styles.label}>Email *</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            aria-describedby={errors.email ? 'email-error' : undefined}
+                        />
+                        {errors.email && <span id="email-error" className={styles.errorMessage}>{errors.email}</span>}
                     </div>
-                    {errors.hobbies && <span className="error-message">{errors.hobbies}</span>}
+
+                    {/* Password */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="password" className={styles.label}>Password *</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            aria-describedby={errors.password ? 'password-error' : undefined}
+                        />
+                        {errors.password && <span id="password-error" className={styles.errorMessage}>{errors.password}</span>}
+                    </div>
+
+                    {/* Confirm Password */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="confirmPassword" className={styles.label}>Confirm Password *</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            aria-describedby={errors.confirmPassword ? 'confirmPassword-error' : undefined}
+                        />
+                        {errors.confirmPassword && <span id="confirmPassword-error" className={styles.errorMessage}>{errors.confirmPassword}</span>}
+                    </div>
+
+                    {/* Phone Number */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="phoneNumber" className={styles.label}>Phone Number *</label>
+                        <input
+                            type="tel"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            value={formData.phoneNumber}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            aria-describedby={errors.phoneNumber ? 'phoneNumber-error' : undefined}
+                        />
+                        {errors.phoneNumber && <span id="phoneNumber-error" className={styles.errorMessage}>{errors.phoneNumber}</span>}
+                    </div>
+
+                    {/* Gender */}
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Gender *</label>
+                        <div className={styles.radioGroup}>
+                            {['Male', 'Female', 'Other'].map(gender => (
+                                <div key={gender} className={styles.radioItem}>
+                                    <input
+                                        type="radio"
+                                        id={gender.toLowerCase()}
+                                        name="gender"
+                                        value={gender}
+                                        checked={formData.gender === gender}
+                                        onChange={handleRadioChange}
+                                    />
+                                    <label htmlFor={gender.toLowerCase()}>{gender}</label>
+                                </div>
+                            ))}
+                        </div>
+                        {errors.gender && <span className={styles.errorMessage}>{errors.gender}</span>}
+                    </div>
+
+                    {/* Date of Birth */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="dateOfBirth" className={styles.label}>Date of Birth *</label>
+                        <input
+                            type="date"
+                            id="dateOfBirth"
+                            name="dateOfBirth"
+                            value={formData.dateOfBirth}
+                            onChange={handleInputChange}
+                            className={styles.input}
+                            aria-describedby={errors.dateOfBirth ? 'dateOfBirth-error' : undefined}
+                        />
+                        {errors.dateOfBirth && <span id="dateOfBirth-error" className={styles.errorMessage}>{errors.dateOfBirth}</span>}
+                    </div>
+
+                    {/* Country */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="country" className={styles.label}>Country *</label>
+                        <select
+                            id="country"
+                            name="country"
+                            value={formData.country}
+                            onChange={handleInputChange}
+                            className={styles.select}
+                            aria-describedby={errors.country ? 'country-error' : undefined}
+                        >
+                            <option value="">Select a country</option>
+                            {countries.map(country => (
+                                <option key={country} value={country}>{country}</option>
+                            ))}
+                        </select>
+                        {errors.country && <span id="country-error" className={styles.errorMessage}>{errors.country}</span>}
+                    </div>
+
+                    {/* Hobbies */}
+                    <div className={styles.fieldGroup}>
+                        <label className={styles.label}>Hobbies *</label>
+                        <div className={styles.checkboxGroup}>
+                            {hobbyOptions.map(hobby => (
+                                <div key={hobby} className={styles.checkboxItem}>
+                                    <input
+                                        type="checkbox"
+                                        id={hobby.toLowerCase()}
+                                        value={hobby}
+                                        checked={formData.hobbies.includes(hobby)}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    <label htmlFor={hobby.toLowerCase()}>{hobby}</label>
+                                </div>
+                            ))}
+                        </div>
+                        {errors.hobbies && <span className={styles.errorMessage}>{errors.hobbies}</span>}
+                    </div>
+
+                    {/* Profile Picture */}
+                    <div className={styles.fieldGroup}>
+                        <label htmlFor="profilePicture" className={styles.label}>Profile Picture *</label>
+                        <input
+                            type="file"
+                            id="profilePicture"
+                            accept=".jpg,.jpeg,.png"
+                            onChange={handleFileChange}
+                            className={styles.fileInput}
+                            aria-describedby={errors.profilePicture ? 'profilePicture-error' : undefined}
+                        />
+                        {errors.profilePicture && <span id="profilePicture-error" className={styles.errorMessage}>{errors.profilePicture}</span>}
+                    </div>
                 </div>
 
-                {/* Profile Picture */}
-                <div className="field-group">
-                    <label htmlFor="profilePicture" className="label">Profile Picture *</label>
-                    <input
-                        type="file"
-                        id="profilePicture"
-                        accept=".jpg,.jpeg,.png"
-                        onChange={handleFileChange}
-                        className="file-input"
-                        aria-describedby={errors.profilePicture ? 'profilePicture-error' : undefined}
-                    />
-                    {errors.profilePicture && <span id="profilePicture-error" className="error-message">{errors.profilePicture}</span>}
-                </div>
-
-                {/* Bio */}
-                <div className="field-group">
-                    <label htmlFor="bio" className="label">Bio (Optional)</label>
+                {/* Bio - Full Width */}
+                <div className={styles.fieldGroup}>
+                    <label htmlFor="bio" className={styles.label}>Bio (Optional)</label>
                     <textarea
                         id="bio"
                         name="bio"
                         value={formData.bio}
                         onChange={handleInputChange}
-                        className="textarea"
+                        className={styles.textarea}
                         rows={4}
                         maxLength={300}
                         aria-describedby={errors.bio ? 'bio-error' : undefined}
                     />
-                    <div className="char-counter">
+                    <div className={styles.charCounter}>
                         {formData.bio.length}/300 characters
                     </div>
-                    {errors.bio && <span id="bio-error" className="error-message">{errors.bio}</span>}
+                    {errors.bio && <span id="bio-error" className={styles.errorMessage}>{errors.bio}</span>}
                 </div>
 
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="submit-button"
-                // className={isFormValid ? 'submit-button' : 'submit-button-disabled'}
-                // disabled={!isFormValid}
+                    className={styles.submitButton}
                 >
                     Register
                 </button>
-            </div>
-        </form>
-    )
-}
+            </form>
+        </div>
+    );
+};
 
 export default UserRegistrationForm;
