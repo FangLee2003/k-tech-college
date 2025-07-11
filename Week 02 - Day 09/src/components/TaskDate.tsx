@@ -25,5 +25,9 @@ export default function TaskDate({ date, format = 'long' }: Props) {
     });
   };
   const formattedDate = date ? formatDate(date, format) : '';
-  return <div>{formattedDate}</div>;
+  return (
+    <div className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-700 shadow-sm hover:shadow-md transition-all duration-200 backdrop-blur-sm">
+      {formattedDate || 'Not set'}
+    </div>
+  );
 }

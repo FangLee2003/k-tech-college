@@ -108,194 +108,251 @@ export default function CreateTask() {
   };
 
   return (
-    <div className="max-w-screen mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Create New Task</h2>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Title Field */}
-        <div>
-          <label htmlFor="title" className="block text-sm font-bold text-gray-700 mb-2">
-            Title <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            id="title"
-            {...register('title')}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
-              errors.title
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                : !errors.title && dirtyFields.title
-                ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-            }`}
-            placeholder="Enter task title"
-          />
-          {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2">
+            Create New Task
+          </h1>
+          <p className="text-gray-600 text-lg">Add a new task to your workflow</p>
         </div>
 
-        {/* Start Date and Due Date Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Start Date */}
-          <div>
-            <label htmlFor="start_date" className="block text-sm font-bold text-gray-700 mb-2">
-              Start Date <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="date"
-              id="start_date"
-              {...register('start_date')}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
-                errors.start_date
-                  ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                  : !errors.start_date && dirtyFields.start_date
-                  ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-              }`}
-            />
-            {errors.start_date && <p className="text-red-500 text-sm mt-1">{errors.start_date.message}</p>}
+        {/* Form Container */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden hover:shadow-2xl transition-all duration-300">
+          <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-1">
+            <div className="bg-white rounded-xl p-8">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+                {/* Title Field */}
+                <div className="space-y-2">
+                  <label htmlFor="title" className="block text-sm font-bold text-gray-700">
+                    <span className="flex items-center space-x-2">
+                      <span>📝</span>
+                      <span>Title</span>
+                      <span className="text-red-500">*</span>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    {...register('title')}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 ${errors.title
+                        ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                        : !errors.title && dirtyFields.title
+                          ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                          : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                      }`}
+                    placeholder="Enter a descriptive task title"
+                  />
+                  {errors.title && <p className="text-red-500 text-sm flex items-center space-x-1">
+                    <span>⚠️</span>
+                    <span>{errors.title.message}</span>
+                  </p>}
+                </div>
+
+                {/* Start Date and Due Date Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Start Date */}
+                  <div className="space-y-2">
+                    <label htmlFor="start_date" className="block text-sm font-bold text-gray-700">
+                      <span className="flex items-center space-x-2">
+                        <span>📅</span>
+                        <span>Start Date</span>
+                        <span className="text-red-500">*</span>
+                      </span>
+                    </label>
+                    <input
+                      type="date"
+                      id="start_date"
+                      {...register('start_date')}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 ${errors.start_date
+                          ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                          : !errors.start_date && dirtyFields.start_date
+                            ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                            : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                        }`}
+                    />
+                    {errors.start_date && <p className="text-red-500 text-sm flex items-center space-x-1">
+                      <span>⚠️</span>
+                      <span>{errors.start_date.message}</span>
+                    </p>}
+                  </div>
+
+                  {/* Due Date */}
+                  <div className="space-y-2">
+                    <label htmlFor="due_date" className="block text-sm font-bold text-gray-700">
+                      <span className="flex items-center space-x-2">
+                        <span>⏰</span>
+                        <span>Due Date</span>
+                      </span>
+                    </label>
+                    <input
+                      type="date"
+                      id="due_date"
+                      {...register('due_date')}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 ${errors.due_date
+                          ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                          : !errors.due_date && dirtyFields.due_date
+                            ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                            : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                        }`}
+                    />
+                    {errors.due_date && <p className="text-red-500 text-sm flex items-center space-x-1">
+                      <span>⚠️</span>
+                      <span>{errors.due_date.message}</span>
+                    </p>}
+                  </div>
+                </div>
+
+                {/* Status and Priority Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Status */}
+                  <div className="space-y-2">
+                    <label htmlFor="status" className="block text-sm font-bold text-gray-700">
+                      <span className="flex items-center space-x-2">
+                        <span>🔄</span>
+                        <span>Status</span>
+                        <span className="text-red-500">*</span>
+                      </span>
+                    </label>
+                    <select
+                      id="status"
+                      {...register('status')}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 ${errors.status
+                          ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                          : !errors.status && dirtyFields.status
+                            ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                            : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                        }`}
+                    >
+                      <option value="to_do">📋 To Do</option>
+                      <option value="in_progress">🔄 In Progress</option>
+                      <option value="done">✅ Done</option>
+                    </select>
+                    {errors.status && <p className="text-red-500 text-sm flex items-center space-x-1">
+                      <span>⚠️</span>
+                      <span>{errors.status.message}</span>
+                    </p>}
+                  </div>
+
+                  {/* Priority */}
+                  <div className="space-y-2">
+                    <label htmlFor="priority" className="block text-sm font-bold text-gray-700">
+                      <span className="flex items-center space-x-2">
+                        <span>⚡</span>
+                        <span>Priority</span>
+                        <span className="text-red-500">*</span>
+                      </span>
+                    </label>
+                    <select
+                      id="priority"
+                      {...register('priority')}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 ${errors.priority
+                          ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                          : !errors.priority && dirtyFields.priority
+                            ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                            : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                        }`}
+                    >
+                      <option value="low">🟢 Low</option>
+                      <option value="medium">🟡 Medium</option>
+                      <option value="high">🔴 High</option>
+                    </select>
+                    {errors.priority && <p className="text-red-500 text-sm flex items-center space-x-1">
+                      <span>⚠️</span>
+                      <span>{errors.priority.message}</span>
+                    </p>}
+                  </div>
+                </div>
+
+                {/* Description Field */}
+                <div className="space-y-2">
+                  <label htmlFor="description" className="block text-sm font-bold text-gray-700">
+                    <span className="flex items-center space-x-2">
+                      <span>📄</span>
+                      <span>Description</span>
+                    </span>
+                  </label>
+                  <textarea
+                    id="description"
+                    rows={4}
+                    {...register('description')}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 resize-none ${errors.description
+                        ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                        : !errors.description && dirtyFields.description
+                          ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                          : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                      }`}
+                    placeholder="Describe the task in detail (optional)"
+                  />
+                  {errors.description && <p className="text-red-500 text-sm flex items-center space-x-1">
+                    <span>⚠️</span>
+                    <span>{errors.description.message}</span>
+                  </p>}
+                </div>
+
+                {/* Assignee ID Field */}
+                <div className="space-y-2">
+                  <label htmlFor="assignee_id" className="block text-sm font-bold text-gray-700">
+                    <span className="flex items-center space-x-2">
+                      <span>👤</span>
+                      <span>Assignee ID</span>
+                    </span>
+                  </label>
+                  <input
+                    type="number"
+                    id="assignee_id"
+                    {...register('assignee_id')}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-4 transition-all duration-200 ${errors.assignee_id
+                        ? 'border-red-300 focus:border-red-500 focus:ring-red-200 bg-red-50'
+                        : !errors.assignee_id && dirtyFields.assignee_id
+                          ? 'border-green-300 focus:border-green-500 focus:ring-green-200 bg-green-50'
+                          : 'border-gray-200 focus:border-blue-500 focus:ring-blue-200 bg-gray-50'
+                      }`}
+                    placeholder="Enter assignee ID (optional)"
+                  />
+                  {errors.assignee_id && <p className="text-red-500 text-sm flex items-center space-x-1">
+                    <span>⚠️</span>
+                    <span>{errors.assignee_id.message}</span>
+                  </p>}
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex justify-end space-x-4 pt-6">
+                  <button
+                    type="button"
+                    onClick={() => reset()}
+                    className="px-8 py-3 border-2 border-gray-300 rounded-xl text-gray-700 bg-gray-50 hover:bg-gray-100 transition-all duration-200 font-medium hover:shadow-md"
+                  >
+                    🔄 Reset
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !isValid}
+                    className={`px-8 py-3 rounded-xl font-medium transition-all duration-200 ${isSubmitting || !isValid
+                        ? 'bg-gray-300 cursor-not-allowed text-gray-500'
+                        : 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                      }`}
+                  >
+                    {isSubmitting ? '⏳ Creating...' : '✨ Create Task'}
+                  </button>
+                </div>
+
+                {/* Form Status */}
+                <div className="text-center pt-4">
+                  <div className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full ${isValid ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                    }`}>
+                    <span>{isValid ? '✅' : '❌'}</span>
+                    <span className="text-sm font-medium">
+                      {isValid ? 'Form is valid' : 'Please fill in all required fields correctly'}
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
-
-          {/* Due Date */}
-          <div>
-            <label htmlFor="due_date" className="block text-sm font-bold text-gray-700 mb-2">
-              Due Date
-            </label>
-            <input
-              type="date"
-              id="due_date"
-              {...register('due_date')}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
-                errors.due_date
-                  ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                  : !errors.due_date && dirtyFields.due_date
-                  ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-              }`}
-            />
-            {errors.due_date && <p className="text-red-500 text-sm mt-1">{errors.due_date.message}</p>}
-          </div>
         </div>
-
-        {/* Status and Priority Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Status */}
-          <div>
-            <label htmlFor="status" className="block text-sm font-bold text-gray-700 mb-2">
-              Status <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="status"
-              {...register('status')}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
-                errors.status
-                  ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                  : !errors.status && dirtyFields.status
-                  ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-              }`}
-            >
-              <option value="to_do">To Do</option>
-              <option value="in_progress">In Progress</option>
-              <option value="done">Done</option>
-            </select>
-            {errors.status && <p className="text-red-500 text-sm mt-1">{errors.status.message}</p>}
-          </div>
-
-          {/* Priority */}
-          <div>
-            <label htmlFor="priority" className="block text-sm font-bold text-gray-700 mb-2">
-              Priority <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="priority"
-              {...register('priority')}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
-                errors.priority
-                  ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                  : !errors.priority && dirtyFields.priority
-                  ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                  : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-              }`}
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-            {errors.priority && <p className="text-red-500 text-sm mt-1">{errors.priority.message}</p>}
-          </div>
-        </div>
-
-        {/* Description Field */}
-        <div>
-          <label htmlFor="description" className="block text-sm font-bold text-gray-700 mb-2">
-            Description
-          </label>
-          <textarea
-            id="description"
-            rows={4}
-            {...register('description')}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors resize-none ${
-              errors.description
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                : !errors.description && dirtyFields.description
-                ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-            }`}
-            placeholder="Enter task description (optional)"
-          />
-          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
-        </div>
-
-        {/* Assignee ID Field */}
-        <div>
-          <label htmlFor="assignee_id" className="block text-sm font-bold text-gray-700 mb-2">
-            Assignee ID
-          </label>
-          <input
-            type="number"
-            id="assignee_id"
-            {...register('assignee_id')}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
-              errors.assignee_id
-                ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                : !errors.assignee_id && dirtyFields.assignee_id
-                ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
-                : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
-            }`}
-            placeholder="Enter assignee ID (optional)"
-          />
-          {errors.assignee_id && <p className="text-red-500 text-sm mt-1">{errors.assignee_id.message}</p>}
-        </div>
-
-        {/* Submit Button */}
-        <div className="flex justify-end space-x-4">
-          <button
-            type="button"
-            onClick={() => reset()}
-            className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors"
-          >
-            Reset
-          </button>
-          <button
-            type="submit"
-            disabled={isSubmitting || !isValid}
-            className={`px-6 py-2 rounded-md font-medium transition-colors ${
-              isSubmitting || !isValid
-                ? 'bg-gray-400 cursor-not-allowed text-white'
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
-            }`}
-          >
-            {isSubmitting ? 'Creating...' : 'Create Task'}
-          </button>
-        </div>
-
-        {/* Form Status */}
-        <div className="text-center">
-          <p className={`text-sm ${isValid ? 'text-green-500' : 'text-red-500'}`}>
-            {isValid ? 'Form is valid ✓' : 'Please fill in all required fields correctly'}
-          </p>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }
