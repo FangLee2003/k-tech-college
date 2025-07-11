@@ -13,7 +13,7 @@ const signUpSchema = yup.object({
   name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
   email: yup.string().required('Email is required').email('Please enter a valid email'),
   password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
-  acceptTerms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+  acceptTerms: yup.boolean().default(false).oneOf([true], 'You must accept the terms and conditions'),
 });
 
 type SignUpFormType = yup.InferType<typeof signUpSchema>;

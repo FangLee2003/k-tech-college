@@ -13,7 +13,7 @@ interface TaskFormData {
   description?: string;
   status: 'to_do' | 'in_progress' | 'done';
   priority: 'low' | 'medium' | 'high';
-  assignee_id?: string;
+  assignee_id?: number;
 }
 
 // Yup validation schema
@@ -45,7 +45,14 @@ const validationSchema: yup.ObjectSchema<TaskFormData> = yup.object({
     .mixed<'low' | 'medium' | 'high'>()
     .required('Priority is required')
     .oneOf(['low', 'medium', 'high'], 'Please select a valid priority'),
-  assignee_id: yup.number().optional().min(1, 'Assignee ID cannot be empty if provided'),
+  assignee_id: yup
+    .number()
+    .transform((value, originalValue) => {
+      // Convert empty string to undefined
+      return originalValue === '' ? undefined : value;
+    })
+    .optional()
+    .min(1, 'Assignee ID cannot be empty if provided'),
 });
 
 export default function CreateTask() {
@@ -65,7 +72,7 @@ export default function CreateTask() {
       description: '',
       status: 'to_do',
       priority: 'medium',
-      assignee_id: '',
+      assignee_id: undefined,
     },
   });
 
@@ -80,7 +87,7 @@ export default function CreateTask() {
         description: data.description || undefined,
         status: data.status,
         priority: data.priority,
-        assignee_id: data.assignee_id || undefined,
+        assignee_id: data.assignee_id,
         completed_date: data.status === 'done' ? new Date() : undefined,
         created_time: new Date(),
         updated_time: new Date(),
@@ -245,7 +252,7 @@ export default function CreateTask() {
             Assignee ID
           </label>
           <input
-            type="text"
+            type="number"
             id="assignee_id"
             {...register('assignee_id')}
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 transition-colors ${

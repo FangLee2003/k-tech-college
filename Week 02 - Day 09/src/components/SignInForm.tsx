@@ -5,19 +5,18 @@ import { useState } from 'react';
 
 interface Props {
   email: string;
-  onBack: () => void;
   onSubmit: (data: SignInFormType) => void;
 }
 
 const signInSchema = yup.object({
   email: yup.string().required('Email is required').email('Please enter a valid email'),
   password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters'),
-  rememberMe: yup.boolean(),
+  rememberMe: yup.boolean().notRequired().default(false),
 });
 
 type SignInFormType = yup.InferType<typeof signInSchema>;
 
-export default function SignInForm({ email, onBack, onSubmit }: Props) {
+export default function SignInForm({ email, onSubmit }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<SignInFormType>({
     resolver: yupResolver(signInSchema),

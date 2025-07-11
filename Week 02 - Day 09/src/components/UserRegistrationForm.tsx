@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -18,7 +18,7 @@ const schema = yup.object({
   gender: yup.string().required('Please select a gender.'),
   dob: yup.date().required('Date of Birth is required').max(minBirthDate, 'You must be at least 18 years old.'),
   country: yup.string().required('Please select a country.'),
-  hobbies: yup.array().of(yup.string()).min(1, 'Select at least one hobby.'),
+  hobbies: yup.array().of(yup.string()).min(1, 'Select at least one hobby.').required(),
   profilePicture: yup
     .mixed()
     .required('Profile picture is required.')
@@ -27,32 +27,20 @@ const schema = yup.object({
       const file = value[0];
       return file && ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type);
     }),
-  bio: yup.string().max(300, 'Bio must be at most 300 characters.'),
+  bio: yup.string().max(300, 'Bio must be at most 300 characters.').default(''),
 });
 
-type FormData = {
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  phoneNumber: string;
-  gender: string;
-  dob: string;
-  country: string;
-  hobbies: string[];
-  profilePicture: FileList;
-  bio: string;
-};
+
 
 const UserRegistrationForm: React.FC = () => {
-  const [bioLength, setBioLength] = useState(0);
-  const { register, handleSubmit, control, formState: { errors }, watch, setValue } = useForm<FormData>({
+
+  const { register, handleSubmit, formState: { errors }, watch } = useForm<yup.InferType<typeof schema>>({
     resolver: yupResolver(schema),
     mode: 'onTouched',
     defaultValues: { hobbies: [] }
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: yup.InferType<typeof schema>) => {
     alert('Registration successful!');
     // handle data here
     console.log(data);
@@ -142,7 +130,7 @@ const UserRegistrationForm: React.FC = () => {
           maxLength={300}
           rows={3}
           className="w-full border rounded px-3 py-2"
-          onChange={e => setBioLength(e.target.value.length)}
+          // onChange removed: no setBioLength
         />
         <div className="flex justify-between">
           {errors.bio && <p className="text-red-600 text-sm mt-1">{errors.bio.message}</p>}

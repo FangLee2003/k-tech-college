@@ -5,27 +5,18 @@ import * as yup from 'yup';
 import InputField from './InputField';
 import CheckboxField from './CheckboxField';
 
-const schema = yup.object().shape({
+const schema = yup.object({
     firstName: yup.string().required('First Name is required').min(2, 'First Name must be at least 2 characters'),
     lastName: yup.string().required('Last Name is required').min(2, 'Last Name must be at least 2 characters'),
     phoneNumber: yup.string().required('Phone Number is required').matches(/^[0-9]{10,15}$/, 'Phone number must be 10-15 digits only'),
     email: yup.string().required('Email is required').email('Please enter a valid email address'),
     password: yup.string().required('Password is required').min(8, 'Password must be at least 8 characters').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*\s).*$/, 'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and no spaces'),
     confirmPassword: yup.string().required('Confirm Password is required').oneOf([yup.ref('password')], 'Passwords must match'),
-    newsletterOptIn: yup.boolean().optional(),
+    newsletterOptIn: yup.boolean().required().default(false),
     termsAgreement: yup.boolean().required('You must agree to the Terms, Privacy Policy, and Fees').oneOf([true], 'You must agree to the Terms, Privacy Policy, and Fees'),
 });
 
-type FormData = {
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    newsletterOptIn: boolean;
-    termsAgreement: boolean;
-};
+
 
 const RegisterForm: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +26,7 @@ const RegisterForm: React.FC = () => {
         handleSubmit,
         formState: { errors, isValid },
         watch
-    } = useForm<FormData>({
+    } = useForm<yup.InferType<typeof schema>>({
         resolver: yupResolver(schema),
         mode: 'onChange',
         defaultValues: {
@@ -50,7 +41,7 @@ const RegisterForm: React.FC = () => {
         }
     });
     const termsAgreement = watch('termsAgreement');
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: yup.InferType<typeof schema>) => {
         console.log('Form submitted:', data);
         alert('Account created successfully!');
     };
