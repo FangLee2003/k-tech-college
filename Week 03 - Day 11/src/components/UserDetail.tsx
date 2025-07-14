@@ -7,7 +7,7 @@ export default function UserDetail() {
   const { id } = useParams(); // Lấy ID từ URL params
   const { getUserById } = useUsers(); // Lấy function từ UserContext
 
-  const user = getUserById(id); // Tìm user theo ID
+  const user = getUserById(id || "1"); // Tìm user theo ID
 
   // Nếu không tìm thấy user
   if (!user) {

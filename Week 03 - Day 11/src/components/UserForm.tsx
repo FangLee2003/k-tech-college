@@ -1,4 +1,4 @@
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useUsers } from '../context/UserProvider';
@@ -14,7 +14,8 @@ const userSchema = yup.object({
     .integer('Age must be an integer')
     .transform((value, originalValue) => (originalValue === '' ? undefined : value))
     .optional(),
-});
+}).required(); // ⚠️ thêm .required() ở đây
+
 
 type UserFormType = yup.InferType<typeof userSchema>;
 
@@ -26,7 +27,7 @@ export default function UserForm({ onAddUser }: { onAddUser?: (data: UserFormTyp
     formState: { errors },
     reset,
   } = useForm<UserFormType>({
-    resolver: yupResolver(userSchema),
+    resolver: yupResolver(userSchema) as Resolver<UserFormType>, // ⚠️ Ép kiểu rõ ràng
     defaultValues: { name: '', email: '' },
     mode: 'onTouched',
   });

@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
         <Navigation />
         <Routes>
           <Route path="/" element={
-            <div>
+            <div className='bg-gradient-to-br from-slate-100 to-slate-200'>
               <UserForm onAddUser={() => {}} />
               <UserList />
             </div>
