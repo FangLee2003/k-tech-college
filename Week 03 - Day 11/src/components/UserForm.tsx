@@ -41,40 +41,93 @@ export default function UserForm({ onAddUser }: { onAddUser?: (data: UserFormTyp
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/20 p-8 rounded-3xl shadow-lg border border-white/50 backdrop-blur-xl max-w-lg mx-auto mb-8">
-      <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-6">Add New User</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <InputField
-          label="Name"
-          name="name"
-          type="text"
-          placeholder="Enter name"
-          register={register}
-          error={errors.name?.message}
-        />
-        <InputField
-          label="Email"
-          name="email"
-          type="email"
-          placeholder="Enter email"
-          register={register}
-          error={errors.email?.message}
-        />
-        <InputField
-          label="Age"
-          name="age"
-          type="number"
-          placeholder="Enter age (optional)"
-          register={register}
-          error={errors.age?.message}
-        />
-        <button
-          type="submit"
-          className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 text-lg mt-2"
-        >
-          Add User
-        </button>
-      </form>
+    <div className="min-h-screen py-12 px-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl mb-4">
+            <span className="text-white text-2xl font-bold">+</span>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">Create New User</h1>
+          <p className="text-gray-600 text-lg">Fill in the details to add a new user to the system</p>
+        </div>
+
+        {/* Form Card */}
+        <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 overflow-hidden">
+          {/* Card Header */}
+          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white">
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <span className="text-xl font-bold">📝</span>
+              </div>
+              <div>
+                <h2 className="text-2xl text-white font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Add New User</h2>
+                <p className="text-indigo-100 text-sm">Please provide the required information</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Original Form Content - Only styling upgraded */}
+          <div className="p-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              <div className="space-y-6">
+                <InputField
+                  label="Name"
+                  name="name"
+                  type="text"
+                  placeholder="Enter name"
+                  register={register}
+                  error={errors.name?.message}
+                />
+                <InputField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter email"
+                  register={register}
+                  error={errors.email?.message}
+                />
+                <InputField
+                  label="Age"
+                  name="age"
+                  type="number"
+                  placeholder="Enter age (optional)"
+                  register={register}
+                  error={errors.age?.message}
+                />
+              </div>
+              
+              <div className="pt-6 border-t border-gray-100">
+                <button
+                  type="submit"
+                  className="w-full py-4 px-8 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-700 hover:to-purple-700 hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg"
+                >
+                  Add User
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* Info Cards */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 text-center">
+            <div className="text-2xl font-bold text-indigo-600 mb-2">📧</div>
+            <div className="text-sm text-gray-600 font-medium">Email Validation</div>
+            <div className="text-xs text-gray-500 mt-1">Automatic verification</div>
+          </div>
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 text-center">
+            <div className="text-2xl font-bold text-purple-600 mb-2">🔒</div>
+            <div className="text-sm text-gray-600 font-medium">Secure Storage</div>
+            <div className="text-xs text-gray-500 mt-1">Encrypted data</div>
+          </div>
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 text-center">
+            <div className="text-2xl font-bold text-green-600 mb-2">⚡</div>
+            <div className="text-sm text-gray-600 font-medium">Instant Access</div>
+            <div className="text-xs text-gray-500 mt-1">Immediate activation</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

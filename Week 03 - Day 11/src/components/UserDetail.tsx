@@ -12,7 +12,7 @@ export default function UserDetail() {
   // Nếu không tìm thấy user
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center px-4">
+      <div className="min-h-screen flex items-center justify-center px-4">
         <div className="max-w-md mx-auto p-8 bg-white rounded-2xl shadow-2xl border border-red-100">
           <div className="text-center">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -31,7 +31,7 @@ export default function UserDetail() {
 
   // Hiển thị thông tin user
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-12 px-4">
+    <div className="min-h-screen py-12 px-4">
       <div className="max-w-md mx-auto">
         <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
           {/* Header with gradient */}
@@ -93,17 +93,13 @@ export default function UserDetail() {
         </div>
 
         {/* Stats cards */}
-        <div className="mt-6 grid grid-cols-3 gap-4">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100 text-center">
-            <div className="text-2xl font-bold text-indigo-600 mb-1">#{user.id}</div>
+            <div className="text-xl font-bold text-indigo-600 mb-1">#{user.id}</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">User ID</div>
           </div>
           <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100 text-center">
-            <div className="text-2xl font-bold text-purple-600 mb-1">100%</div>
-            <div className="text-xs text-gray-500 uppercase tracking-wide">Complete</div>
-          </div>
-          <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-100 text-center">
-            <div className="text-2xl font-bold text-green-600 mb-1">✓</div>
+            <div className="text-xl font-bold text-green-600 mb-1">✓</div>
             <div className="text-xs text-gray-500 uppercase tracking-wide">Verified</div>
           </div>
         </div>

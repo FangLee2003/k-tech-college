@@ -6,8 +6,9 @@ export default function UserList() {
   const { users } = useUsers();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 py-12 px-4">
+    <div className="min-h-screen  py-12 px-4">
       <div className="max-w-4xl mx-auto">
+
         {/* Header Section */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl mb-4">
@@ -20,7 +21,21 @@ export default function UserList() {
             {users.length} Active Users
           </div>
         </div>
-
+        {/* Stats */}
+        <div className="mb-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+            <div className="text-3xl font-bold text-indigo-600 mb-2">{users.length}</div>
+            <div className="text-gray-600 font-medium">Total Users</div>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+            <div className="text-3xl font-bold text-green-600 mb-2">{users.filter(u => u.age).length}</div>
+            <div className="text-gray-600 font-medium">With Age Info</div>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+            <div className="text-3xl font-bold text-purple-600 mb-2">100%</div>
+            <div className="text-gray-600 font-medium">Active Status</div>
+          </div>
+        </div>
         {/* Users Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {users.map((user) => (
@@ -67,7 +82,7 @@ export default function UserList() {
                 </div>
 
                 {/* Action Button */}
-                <div className="mt-6 pt-4 border-t border-gray-100">
+                <div className="mt-6 flex pt-4 border-t border-gray-100 text-center">
                   <Link to={`/users/${user.id}`}
                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg group-hover:shadow-xl"
                   >
@@ -90,22 +105,6 @@ export default function UserList() {
             <p className="text-gray-600">There are no users in the system yet.</p>
           </div>
         )}
-
-        {/* Footer Stats */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
-            <div className="text-3xl font-bold text-indigo-600 mb-2">{users.length}</div>
-            <div className="text-gray-600 font-medium">Total Users</div>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">{users.filter(u => u.age).length}</div>
-            <div className="text-gray-600 font-medium">With Age Info</div>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">100%</div>
-            <div className="text-gray-600 font-medium">Active Status</div>
-          </div>
-        </div>
       </div>
     </div>
   );
