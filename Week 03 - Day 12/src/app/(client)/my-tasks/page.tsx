@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import TaskList from '../../../components/TaskList';
 import Loading from '../../../components/Loading';

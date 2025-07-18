@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router';
+import { useRouter, useParams } from 'next/navigation';
 import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -51,10 +53,10 @@ const validationSchema: yup.ObjectSchema<TaskFormData> = yup.object({
     .oneOf(['low', 'medium', 'high'], 'Please select a valid priority'),
   assignee_id: yup.number().optional().min(1, 'Assignee ID must be a positive number'),
 });
-
 export default function UpdateTask() {
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const router = useRouter();
+  const params = useParams();
+  const id = params?.id;
   const [task, setTask] = React.useState<Task | null>(null);
 
   const {
@@ -71,7 +73,8 @@ export default function UpdateTask() {
     const fetchTask = async () => {
       if (id !== undefined) {
         try {
-          const data = await getTaskById(id);
+          const idStr = Array.isArray(id) ? id[0] : id;
+          const data = await getTaskById(idStr);
           if (!data) {
             throw new Error('Task not found');
           }
@@ -117,7 +120,7 @@ export default function UpdateTask() {
       // Call the updateTask service
       await updateTask(updatedTask);
 
-      navigate('/tasks'); // Redirect to tasks list after update
+      router.push('/tasks'); // Redirect to tasks list after update
     } catch (error) {
       console.error('Error updating task:', error);
       alert('Failed to update task. Please try again.');
@@ -155,10 +158,10 @@ export default function UpdateTask() {
                   id="title"
                   {...register('title')}
                   className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 ${errors.title
-                      ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                      : !errors.title && dirtyFields.title
-                        ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                    : !errors.title && dirtyFields.title
+                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                     }`}
                   placeholder="Enter your task title..."
                 />
@@ -189,10 +192,10 @@ export default function UpdateTask() {
                   id="start_date"
                   {...register('start_date')}
                   className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 ${errors.start_date
-                      ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                      : !errors.start_date && dirtyFields.start_date
-                        ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                    : !errors.start_date && dirtyFields.start_date
+                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                     }`}
                 />
                 {errors.start_date && (
@@ -214,10 +217,10 @@ export default function UpdateTask() {
                   id="due_date"
                   {...register('due_date')}
                   className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 ${errors.due_date
-                      ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                      : !errors.due_date && dirtyFields.due_date
-                        ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                    : !errors.due_date && dirtyFields.due_date
+                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                     }`}
                 />
                 {errors.due_date && (
@@ -241,10 +244,10 @@ export default function UpdateTask() {
                   id="status"
                   {...register('status')}
                   className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 ${errors.status
-                      ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                      : !errors.status && dirtyFields.status
-                        ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                    : !errors.status && dirtyFields.status
+                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                     }`}
                 >
                   <option value="to_do">📋 To Do</option>
@@ -269,10 +272,10 @@ export default function UpdateTask() {
                   id="priority"
                   {...register('priority')}
                   className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 ${errors.priority
-                      ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                      : !errors.priority && dirtyFields.priority
-                        ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                        : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                    : !errors.priority && dirtyFields.priority
+                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                     }`}
                 >
                   <option value="low">🟢 Low</option>
@@ -299,10 +302,10 @@ export default function UpdateTask() {
                 rows={5}
                 {...register('description')}
                 className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 resize-none ${errors.description
-                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                    : !errors.description && dirtyFields.description
-                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                  ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                  : !errors.description && dirtyFields.description
+                    ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                    : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                   }`}
                 placeholder="Describe your task in detail..."
               />
@@ -325,10 +328,10 @@ export default function UpdateTask() {
                 id="assignee_id"
                 {...register('assignee_id')}
                 className={`w-full px-4 py-4 border-2 rounded-2xl focus:outline-none focus:ring-4 transition-all duration-300 ${errors.assignee_id
-                    ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
-                    : !errors.assignee_id && dirtyFields.assignee_id
-                      ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
-                      : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
+                  ? 'border-red-400 focus:border-red-500 focus:ring-red-100 bg-red-50'
+                  : !errors.assignee_id && dirtyFields.assignee_id
+                    ? 'border-green-400 focus:border-green-500 focus:ring-green-100 bg-green-50'
+                    : 'border-gray-200 focus:border-blue-500 focus:ring-blue-100 bg-gray-50 hover:bg-white'
                   }`}
                 placeholder="Enter assignee ID..."
               />
@@ -343,8 +346,8 @@ export default function UpdateTask() {
             {/* Form Status */}
             <div className="text-center py-4">
               <div className={`inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${isValid
-                  ? 'bg-green-100 text-green-700 border-2 border-green-200'
-                  : 'bg-red-100 text-red-700 border-2 border-red-200'
+                ? 'bg-green-100 text-green-700 border-2 border-green-200'
+                : 'bg-red-100 text-red-700 border-2 border-red-200'
                 }`}>
                 <div className={`w-3 h-3 rounded-full mr-3 ${isValid ? 'bg-green-500' : 'bg-red-500'}`}></div>
                 {isValid ? 'Form is valid and ready to submit!' : 'Please fill in all required fields correctly'}
@@ -357,8 +360,8 @@ export default function UpdateTask() {
                 type="submit"
                 disabled={isSubmitting || !isValid}
                 className={`relative px-12 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform ${isSubmitting || !isValid
-                    ? 'bg-gray-300 cursor-not-allowed text-gray-500 scale-95'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl scale-100 hover:scale-105'
+                  ? 'bg-gray-300 cursor-not-allowed text-gray-500 scale-95'
+                  : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl scale-100 hover:scale-105'
                   }`}
               >
                 {isSubmitting ? (

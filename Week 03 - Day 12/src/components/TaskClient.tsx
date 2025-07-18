@@ -43,7 +43,7 @@ const TasksClient = () => {
         if (!res.ok) throw new Error('Lỗi khi lấy dữ liệu task');
         const task = await res.json();
         setData(task.data);
-      } catch (err) {
+      } catch (err: any) {
         setError(err.message || 'Lỗi không xác định');
       } finally {
         setLoading(false);
