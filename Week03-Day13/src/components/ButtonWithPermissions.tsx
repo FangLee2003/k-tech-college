@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/Button";
 import { hasPermissions } from "@/utils/auth.util";
 
 interface ButtonWithPermissionsProps {
@@ -13,22 +13,22 @@ interface ButtonWithPermissionsProps {
  * Component Button với kiểm tra quyền
  * Chỉ hiển thị nút khi user có quyền phù hợp
  */
-const ButtonWithPermissions: React.FC<ButtonWithPermissionsProps> = ({ 
-  permissions = ['Administrator'], 
-  children, 
-  onClick, 
-  className = '', 
-  ...props 
+const ButtonWithPermissions: React.FC<ButtonWithPermissionsProps> = ({
+  permissions = ['Administrator'],
+  children,
+  onClick,
+  className = '',
+  ...props
 }) => {
-  
+
   if (!hasPermissions(permissions)) {
     return null;
   }
-  
+
   return (
-    <Button  
-      onClick={onClick} 
-      className={className} 
+    <Button
+      onClick={onClick}
+      className={className}
       {...props}
     >
       {children}
