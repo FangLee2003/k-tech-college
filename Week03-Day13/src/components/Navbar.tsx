@@ -1,10 +1,18 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
+import { useAuthStore } from '@/store/useAuthStore';
 export default function Navbar() {
+  const { isAuthenticated, logout } = useAuthStore();
+
   return (
     <nav style={{ backgroundColor: 'white', padding: '1rem', borderBottom: '1px solid #eee', display: 'flex', gap: '1.5rem', color: 'black' }}>
       <Link href="/">Home</Link>
-      <Link href="/login">Login</Link>
+      {isAuthenticated ?
+        <button onClick={logout} style={{ background: 'none', border: 'none', color: 'blue', cursor: 'pointer' }}>Logout</button>
+        :
+        <Link href="/login">Login</Link>
+      }
       {/* Task routes group */}
       <div style={{ display: 'flex', gap: '1rem' }}>
         <Link href="/task-csr">Task CSR</Link>
@@ -19,3 +27,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
